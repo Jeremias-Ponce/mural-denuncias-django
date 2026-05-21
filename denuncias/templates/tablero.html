@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural de Denuncias Anónimas</title>
+    <link rel="stylesheet" href="{% static 'denuncias/css/style.css' %}">
+</head>
+<body>
+
+    <h1>Tablero de Casos Anónimos</h1>
+
+    <div style="text-align: center; margin-bottom: 25px;">
+        <a href="{% url 'crear_nota' %}" style="background-color: #cc0000; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 5px; box-shadow: 2px 2px 8px rgba(0,0,0,0.4); display: inline-block;">
+            + Registrar Denuncia Anónima
+        </a>
+    </div>
+
+    <div class="filtros">
+        <button class="btn-filtro" data-categoria="TODOS">Ver Todo</button>
+        <button class="btn-filtro" data-categoria="URG">🔴 Urgentes</button>
+        <button class="btn-filtro" data-categoria="INF">🟡 Infraestructura</button>
+        <button class="btn-filtro" data-categoria="OBS">🔵 Observaciones</button>
+    </div>
+    
+    <div class="mural">
+        {% for nota in notas %}
+            <div class="papelito" data-categoria="{{ nota.categoria }}">
+                <h3>{{ nota.titulo }}</h3>
+                <p><strong>Categoría:</strong> {{ nota.get_categoria_display }}</p>
+                <p>{{ nota.descripcion }}</p>
+                <hr style="border: 0; border-top: 1px solid #ccc; margin-top: 15px;">
+                <small style="color: gray; display: block; text-align: right;">
+                    {{ nota.fecha_creacion|date:"d M Y" }}
+                </small>
+            </div>
+        {% empty %}
+            <p style="background-color: white; padding: 20px; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+                El tablero está vacío. No hay reportes actualmente.
+            </p>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'denuncias/js/main.js' %}"></script>
+</body>
+</html>
