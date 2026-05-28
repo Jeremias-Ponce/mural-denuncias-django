@@ -116,3 +116,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# --- CONFIGURACIÓN DE RUTAS DE USUARIO ---
+# Le dice a Django dónde está tu pantalla de login personalizada
+LOGIN_URL = 'login'
+
+# Le dice a Django a dónde llevar al usuario al iniciar sesión con éxito
+LOGIN_REDIRECT_URL = 'tablero'
+
+# Le dice a Django a dónde llevar al usuario cuando cierra sesión
+LOGOUT_REDIRECT_URL = 'login'
