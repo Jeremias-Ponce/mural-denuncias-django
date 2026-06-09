@@ -30,29 +30,35 @@
     </div>
     
     <div class="mural">
-        {% for nota in notas %}
-            <div class="papelito" data-categoria="{{ nota.categoria }}">
-                <h3>{{ nota.titulo }}</h3>
-                <p><strong>Categoría:</strong> {{ nota.get_categoria_display }}</p>
-                <p>{{ nota.descripcion }}</p>
-                
-                {% if nota.usuario == user %}
-                    <div style="text-align: left; margin-top: 10px;">
-                        <a href="{% url 'eliminar_nota' nota.id %}" onclick="return confirm('¿Seguro que deseas eliminar este reporte?')" style="color: white; background-color: #cc0000; padding: 3px 8px; text-decoration: none; font-size: 12px; font-weight: bold; border-radius: 3px;">
-                            🗑️ Borrar mi nota
-                        </a>
-                    </div>
-                {% endif %}
+     {% for nota in notas %}
+        <div class="papelito" data-categoria="{{ nota.categoria }}" style="align-self: flex-start; height: fit-content;">
+            <h3>{{ nota.titulo }}</h3>
+            <p><strong>Categoría:</strong> {{ nota.get_categoria_display }}</p>
+            
+            {% if nota.imagen %}
+                <div style="margin: 10px 0; text-align: center;">
+                    <img src="{{ nota.imagen.url }}" alt="Foto del reporte" style="max-width: 100%; border-radius: 5px; border: 1px solid #ddd;">
+                </div>
+            {% endif %}
+            <p>{{ nota.descripcion }}</p>
+            
+            {% if nota.usuario == user %}
+                <div style="text-align: left; margin-top: 10px;">
+                    <a href="{% url 'eliminar_nota' nota.id %}" onclick="return confirm('¿Seguro que deseas eliminar este reporte?')" style="color: white; background-color: #cc0000; padding: 3px 8px; text-decoration: none; font-size: 12px; font-weight: bold; border-radius: 3px;">
+                        🗑️ Borrar mi nota
+                    </a>
+                </div>
+            {% endif %}
 
-                <hr style="border: 0; border-top: 1px solid #ccc; margin-top: 15px;">
-                <small style="color: gray; display: block; text-align: right;">
-                    {{ nota.fecha_creacion|date:"d M Y" }}
-                </small>
-            </div>
-        {% empty %}
-            <p style="background-color: white; padding: 20px; border-radius: 5px;">El tablero está vacío.</p>
-        {% endfor %}
-    </div>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin-top: 15px;">
+            <small style="color: gray; display: block; text-align: right;">
+                {{ nota.fecha_creacion|date:"d M Y" }}
+            </small>
+        </div>
+    {% empty %}
+        <p style="background-color: white; padding: 20px; border-radius: 5px;">El tablero está vacío.</p>
+    {% endfor %}
+</div>
 
     <script src="{% static 'denuncias/js/main.js' %}"></script>
 </body>

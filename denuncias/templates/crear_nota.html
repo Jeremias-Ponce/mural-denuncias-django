@@ -53,11 +53,14 @@
     <div class="contenedor-formulario">
         <h2 class="titulo-expediente">NUEVO INFORME ANÓNIMO</h2>
         
-        <form method="POST">
-            {% csrf_token %} {{ form.as_p }} <div style="text-align: center; margin-top: 20px;">
-                <button type="submit" class="btn-enviar">Colgar en el Tablero</button>
-                <a href="{% url 'tablero' %}" style="margin-left: 15px; color: #3e2723; text-decoration: none; font-weight: bold;">Cancelar</a>
-            </div>
+        <form method="POST" enctype="multipart/form-data">
+           {% csrf_token %} 
+           {{ form.as_p }} 
+    
+          <div style="text-align: center; margin-top: 20px;">
+              <button type="submit" class="btn-enviar">Colgar en el Tablero</button>
+              <a href="{% url 'tablero' %}" style="margin-left: 15px; color: #3e2723; text-decoration: none; font-weight: bold;">Cancelar</a>
+         </div>
         </form>
     </div>
 

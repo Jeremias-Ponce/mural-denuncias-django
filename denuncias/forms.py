@@ -6,17 +6,23 @@ from .models import Nota
 class NotaForm(forms.ModelForm):
     class Meta:
         model = Nota
-        fields = ['titulo', 'categoria', 'descripcion']
+        fields = ['titulo', 'categoria', 'descripcion', 'imagen']
         # Estilos y textos de ayuda para cada campo
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ej: Farola rota'}),
             'categoria': forms.Select(attrs={'class': 'form-input'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-input', 'rows': 4, 'placeholder': 'Detalles...'}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-input'})
         }
 
-# --- Formulario de Registro (personalizado) ---
 class RegistroForm(forms.Form):
     dni = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ingresa tu DNI'}))
+    
+    # --- CÓDIGO NUEVO ---
+    # Usamos EmailField para que el navegador obligue al usuario a poner un "@"
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Tu correo electrónico'}))
+    # --------------------
+    
     edad = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-input', 'placeholder': 'Tu edad real'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Crea una contraseña'}))
 

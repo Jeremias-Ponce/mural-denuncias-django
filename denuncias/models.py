@@ -14,6 +14,7 @@ class Nota(models.Model): #Aquí le estamos diciendo a Django: "Crea una tabla e
     descripcion = models.TextField(max_length=250)
     categoria = models.CharField(max_length=3, choices=CATEGORIAS, default='OBS') 
     fecha_creacion = models.DateTimeField(auto_now_add=True) 
+    imagen = models.ImageField(upload_to='denuncias_fotos/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.titulo} - {self.categoria}"            

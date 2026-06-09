@@ -10,12 +10,21 @@
     <div style="max-width: 400px; margin: 60px auto; background-color: #fdf5e6; padding: 30px; box-shadow: 4px 4px 12px rgba(0,0,0,0.3); font-family: sans-serif;">
         <h2 style="text-align: center; color: #3e2723;">INICIAR SESIÓN</h2>
         {% if error %}<p style="color: red; text-align: center;">{{ error }}</p>{% endif %}
-        <form method="POST">
-            {% csrf_token %}
-            <p><label>DNI:</label><input type="text" name="dni" class="form-input" required></p>
-            <p><label>Contraseña:</label><input type="password" name="password" class="form-input" required></p>
-            <button type="submit" style="width: 100%; background-color: #3e2723; color: white; padding: 10px; border: none; font-weight: bold; cursor: pointer;">Entrar al Tablero</button>
-        </form>
+       <form method="POST">
+          {% csrf_token %}
+           <p><label>DNI:</label><input type="text" name="dni" class="form-input" required></p>
+           <p><label>Contraseña:</label><input type="password" name="password" class="form-input" required></p>
+    
+            <button type="submit" style="width: 100%; background-color: #3e2723; color: white; padding: 10px; border: none; font-weight: bold; cursor: pointer;">
+             Entrar al Tablero
+            </button>
+    
+          <div style="text-align: center; margin-top: 15px;">
+           <a href="{% url 'password_reset' %}" style="color: #3e2723; text-decoration: underline; font-size: 14px;">
+            ¿Olvidaste tu contraseña?
+         </a>
+    </div>
+    </form>
         <p style="text-align: center; margin-top: 15px;"><a href="{% url 'registro' %}" style="color: #cc0000; text-decoration: none;">¿No tienes cuenta? Regístrate aquí</a></p>
     </div>
 </body>

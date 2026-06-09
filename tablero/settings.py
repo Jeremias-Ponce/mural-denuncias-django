@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Esto "despierta" a tu archivo .env
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -126,3 +131,19 @@ LOGIN_REDIRECT_URL = 'tablero'
 
 # Le dice a Django a dónde llevar al usuario cuando cierra sesión
 LOGOUT_REDIRECT_URL = 'login'
+
+# MEDIA_URL es la dirección web que se usará para ver la foto
+MEDIA_URL = '/media/'
+
+# MEDIA_ROOT es la carpeta real en tu computadora donde se guardarán
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# --- CONFIGURACIÓN PARA ENVIAR CORREOS REALES CON GMAIL ---
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# Django saca los datos directamente del archivo .env
+EMAIL_HOST_USER = os.getenv('EMAIL_SECRETO')
+EMAIL_HOST_PASSWORD = os.getenv('PASSWORD_SECRETO')

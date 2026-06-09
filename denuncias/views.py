@@ -27,7 +27,7 @@ def crear_nota(request):
     # Si el método es POST (significa que el usuario presionó el botón "Enviar" en el HTML)
     if request.method == 'POST':
         # Agarramos los datos que vienen en ese "sobre cerrado"
-        form = NotaForm(request.POST)
+        form = NotaForm(request.POST, request.FILES)
         
         # Verificamos que no haya trampas y los datos sean válidos
         if form.is_valid():
@@ -76,14 +76,18 @@ def registro_usuario(request):
     form = RegistroForm(request.POST or None)
     
     if request.method == 'POST' and form.is_valid():
-        # Extraemos los datos limpios y validados del formulario
+        # Extraemos los datos limpios
         dni = form.cleaned_data['dni']
         password = form.cleaned_data['password']
         
-        # Hack de Django: Guardamos el DNI dentro del campo 'username' interno del sistema
-        user = User.objects.create_user(username=dni, password=password)
+        # --- CÓDIGO NUEVO ---
+        # Atrapamos el correo que el usuario escribió
+        email = form.cleaned_data['email'] 
         
-        # Inicia la sesión automáticamente para que no tenga que loguearse de nuevo
+        # Le pasamos el email al creador de usuarios (fíjate que agregamos email=email adentro de los paréntesis)
+        user = User.objects.create_user(username=dni, email=email, password=password)
+        # --------------------
+        
         login(request, user)
         return redirect('tablero')
         

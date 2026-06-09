@@ -1,3 +1,6 @@
+# Ignorar mi bóveda secreta (¡Súper importante!)
+.env
+
 # Ignorar el entorno virtual
 venv/
 env/
