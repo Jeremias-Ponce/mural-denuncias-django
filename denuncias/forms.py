@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Nota
 
-# --- Formulario de Denuncias (vinculado al modelo Nota) ---
+# --- Crea un formulario de Denuncias (vinculado al modelo Nota) ---
 class NotaForm(forms.ModelForm):
     class Meta:
         model = Nota

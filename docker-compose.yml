@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # Refleja tus cambios en tiempo real
+    env_file:
+      - .env    # ¡Lee tu bóveda secreta automáticamente!
