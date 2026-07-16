@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Denuncia</title>
+    <link rel="stylesheet" href="{% static 'denuncias/css/style.css' %}">
+    <style>
+        .contenedor-formulario {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fdf5e6;
+            padding: 30px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            transform: rotate(1deg);
+            border: 1px solid #dcdcdc;
+        }
+        .titulo-expediente {
+            color: #cc0000;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            border-bottom: 2px dashed #3e2723;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-enviar {
+            background-color: #3e2723;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .btn-enviar:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-formulario">
+        <h2 class="titulo-expediente">EDITAR INFORME</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn-enviar">Guardar cambios</button>
+                <a href="{% url 'tablero' %}" style="margin-left: 15px; color: #3e2723; text-decoration: none; font-weight: bold;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
