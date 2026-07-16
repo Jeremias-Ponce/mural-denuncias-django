@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: mural_db
+      POSTGRES_USER: usuario_mural
+      POSTGRES_PASSWORD: password123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   web:
     build: .
     ports:
@@ -9,3 +18,14 @@ services:
       - .:/app  # Refleja tus cambios en tiempo real
     env_file:
       - .env    # ¡Lee tu bóveda secreta automáticamente!
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: mural_db
+      POSTGRES_USER: usuario_mural
+      POSTGRES_PASSWORD: password123
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+
+volumes:
+  postgres_data:

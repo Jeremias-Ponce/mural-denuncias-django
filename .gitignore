@@ -1,13 +1,23 @@
-# Ignorar mi bóveda secreta (¡Súper importante!)
-.env
-
-# Ignorar el entorno virtual
+# Entornos virtuales
 venv/
 env/
 
-# Ignorar la base de datos local
+# Variables de entorno (¡CRÍTICO!)
+.env
+
+# Base de datos local vieja
 db.sqlite3
 
-# Ignorar archivos temporales de Python
+# Archivos de caché de Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Archivos multimedia de usuarios 
+media/
+
+# Posibles carpetas de datos de PostgreSQL
+postgres_data/
+pgdata/
+db_data/

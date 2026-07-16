@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'tablero.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'mural_db'),
+        'USER': os.getenv('POSTGRES_USER', 'usuario_mural'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'password123'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
 
