@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportar Caso Anónimo</title>
+    <!-- Cargamos nuestra hoja de estilos externa -->
     <link rel="stylesheet" href="{% static 'denuncias/css/style.css' %}">
+    
     <style>
         /* Estilos específicos para que el formulario parezca un documento confidencial */
         .contenedor-formulario {
@@ -14,7 +16,7 @@
             background-color: #fdf5e6;
             padding: 30px;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            transform: rotate(1deg);
+            transform: rotate(1deg); /* Le da un toque manual/desordenado */
             border: 1px solid #dcdcdc;
         }
         .titulo-expediente {
@@ -50,17 +52,22 @@
 </head>
 <body>
 
+    <!-- Contenedor principal que agrupa el formulario -->
     <div class="contenedor-formulario">
         <h2 class="titulo-expediente">NUEVO INFORME ANÓNIMO</h2>
         
+        <!-- Formulario con soporte para archivos (enctype) y protección de seguridad (csrf_token) -->
         <form method="POST" enctype="multipart/form-data">
            {% csrf_token %} 
+           
+           <!-- Renderizado automático de los campos del modelo definidos en Django -->
            {{ form.as_p }} 
     
-          <div style="text-align: center; margin-top: 20px;">
+           <!-- Botones de acción para enviar los datos o regresar al mural -->
+           <div style="text-align: center; margin-top: 20px;">
               <button type="submit" class="btn-enviar">Colgar en el Tablero</button>
               <a href="{% url 'tablero' %}" style="margin-left: 15px; color: #3e2723; text-decoration: none; font-weight: bold;">Cancelar</a>
-         </div>
+           </div>
         </form>
     </div>
 

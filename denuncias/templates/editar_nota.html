@@ -1,3 +1,4 @@
+HTML
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -5,15 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Denuncia</title>
+    
+    <!-- Vinculamos la hoja de estilos estática. 'load static' es la etiqueta de Django para gestionar archivos como CSS, JS e imágenes -->
     <link rel="stylesheet" href="{% static 'denuncias/css/style.css' %}">
+    
     <style>
+        /* Contenedor con estética de 'papel viejo' para mantener la identidad visual del sitio */
         .contenedor-formulario {
             max-width: 500px;
             margin: 50px auto;
             background-color: #fdf5e6;
             padding: 30px;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            transform: rotate(1deg);
+            transform: rotate(1deg); /* Ligera rotación para simular un documento sobre una mesa */
             border: 1px solid #dcdcdc;
         }
         .titulo-expediente {
@@ -24,15 +29,7 @@
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
-        .form-input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+        /* Estilo para los botones de acción */
         .btn-enviar {
             background-color: #3e2723;
             color: white;
@@ -43,7 +40,7 @@
             border-radius: 4px;
         }
         .btn-enviar:hover {
-            background-color: #cc0000;
+            background-color: #cc0000; /* Efecto visual de resaltado al pasar el mouse */
         }
     </style>
 </head>
@@ -52,10 +49,25 @@
     <div class="contenedor-formulario">
         <h2 class="titulo-expediente">EDITAR INFORME</h2>
 
+        <!-- 
+            Formulario de edición. 
+            'method="POST"' envía los datos de forma segura al servidor.
+            'enctype="multipart/form-data"' es indispensable para que el formulario pueda procesar subidas de archivos (imágenes).
+        -->
         <form method="POST" enctype="multipart/form-data">
+            <!-- 
+                '{% csrf_token %}' es una medida de seguridad obligatoria de Django. 
+                Evita ataques de falsificación de peticiones entre sitios, asegurando que el formulario fue enviado desde nuestra página.
+            -->
             {% csrf_token %}
+            
+            <!-- 
+                '{{ form.as_p }}' renderiza automáticamente todos los campos del modelo en párrafos HTML.
+                En el caso de edición, Django rellena los campos automáticamente con los datos actuales del registro.
+            -->
             {{ form.as_p }}
 
+            <!-- Sección de botones para confirmar la persistencia de cambios o cancelar la operación -->
             <div style="text-align: center; margin-top: 20px;">
                 <button type="submit" class="btn-enviar">Guardar cambios</button>
                 <a href="{% url 'tablero' %}" style="margin-left: 15px; color: #3e2723; text-decoration: none; font-weight: bold;">Cancelar</a>

@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural de Denuncias Anónimas</title>
+    <!-- Vinculación del archivo CSS estático -->
     <link rel="stylesheet" href="{% static 'denuncias/css/style.css' %}">
 </head>
 <body>
 
+    <!-- 
+        Barra de navegación dinámica:
+        Si el usuario está autenticado, muestra su DNI y el botón de cerrar sesión.
+        Si es un invitado, ofrece botones de Iniciar Sesión y Registro.
+    -->
     <div style="background: rgba(255,255,255,0.8); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto 20px auto; border-radius: 5px;">
         {% if user.is_authenticated %}
             <span>Agente activo: <strong>DNI {{ user.username }}</strong></span>
@@ -24,8 +30,7 @@
 
     <h1>Tablero de Casos Anónimos</h1>
 
-
-
+    <!-- Panel de filtros para organizar la visualización de notas -->
     <div class="filtros">
         <button class="btn-filtro" data-categoria="TODOS">Ver Todo</button>
         <button class="btn-filtro" data-categoria="URG">🔴 Urgentes</button>
@@ -33,12 +38,14 @@
         <button class="btn-filtro" data-categoria="OBS">🔵 Observaciones</button>
     </div>
 
+    <!-- Mural de notas: recorre todas las denuncias recibidas desde la base de datos -->
     <div class="mural">
         {% for nota in notas %}
             <div class="papelito" data-categoria="{{ nota.categoria }}" style="align-self: flex-start; height: fit-content;">
                 <h3>{{ nota.titulo }}</h3>
                 <p><strong>Categoría:</strong> {{ nota.get_categoria_display }}</p>
 
+                <!-- Validación de imagen: solo muestra el bloque si el reporte incluye archivo multimedia -->
                 {% if nota.imagen %}
                     <div style="margin: 10px 0; text-align: center;">
                         <img src="{{ nota.imagen.url }}" alt="Foto del reporte" style="max-width: 100%; border-radius: 5px; border: 1px solid #ddd;">
@@ -46,6 +53,10 @@
                 {% endif %}
                 <p>{{ nota.descripcion }}</p>
 
+                <!-- 
+                    Control de Acceso: 
+                    Solo el autor de la nota (y si está logueado) puede ver los botones para Editar o Borrar.
+                -->
                 {% if user.is_authenticated and nota.usuario == user %}
                     <div style="text-align: left; margin-top: 10px;">
                         <a href="{% url 'editar_nota' nota.id %}" style="color: white; background-color: #3e2723; padding: 3px 8px; text-decoration: none; font-size: 12px; font-weight: bold; border-radius: 3px; margin-right: 8px;">
@@ -63,10 +74,12 @@
                 </small>
             </div>
         {% empty %}
+            <!-- Mensaje por defecto si la base de datos no tiene notas -->
             <p style="background-color: white; padding: 20px; border-radius: 5px;">El tablero está vacío.</p>
         {% endfor %}
     </div>
 
+    <!-- Botón de acción: aparece al final, adaptándose según si el usuario es un agente o un invitado -->
     <div style="text-align: center; margin-bottom: 25px;">
         {% if user.is_authenticated %}
             <a href="{% url 'crear_nota' %}" style="background-color: #cc0000; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 5px; box-shadow: 2px 2px 8px rgba(0,0,0,0.4); display: inline-block;">
@@ -79,6 +92,7 @@
         {% endif %}
     </div>
     
+    <!-- Vinculación del script de JavaScript para la lógica de filtros y efectos -->
     <script src="{% static 'denuncias/js/main.js' %}"></script>
 </body>
 </html>

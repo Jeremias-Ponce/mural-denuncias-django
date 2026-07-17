@@ -6,15 +6,27 @@ from django.urls import path
 
 from denuncias import views
 
+# Definición de las rutas del proyecto
 urlpatterns = [
+    # Panel de administración predeterminado de Django
     path('admin/', admin.site.urls),
+    
+    # Ruta raíz: carga el tablero principal como página de inicio
     path('', views.tablero_principal, name='tablero'),
+    
+    # Rutas para la gestión de denuncias (crear, editar, eliminar)
+    # <int:nota_id> captura el ID de la nota desde la URL para saber cuál manipular
     path('nueva-denuncia/', views.crear_nota, name='crear_nota'),
     path('editar/<int:nota_id>/', views.editar_nota, name='editar_nota'),
     path('eliminar/<int:nota_id>/', views.eliminar_nota, name='eliminar_nota'),
+    
+    # Rutas de autenticación para usuarios
     path('registro/', views.registro_usuario, name='registro'),
     path('login/', views.login_usuario, name='login'),
     path('logout/', views.logout_usuario, name='logout'),
+    
+    # Rutas de recuperación de contraseña:
+    # Django utiliza vistas basadas en clases para manejar todo el flujo de restablecimiento
     path(
         'reset_password/',
         auth_views.PasswordResetView.as_view(
@@ -45,5 +57,6 @@ urlpatterns = [
     ),
 ]
 
+# Configuración para servir archivos multimedia (imágenes) solo durante el desarrollo (DEBUG=True)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
