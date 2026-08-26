@@ -1,5 +1,5 @@
-from django.db import models #Le dice a Python: "Tráeme la caja de herramientas de Django que sirve para construir bases de datos".
-from django.contrib.auth.models import User  # Django es muy inteligente y ya viene con un sistema de usuarios completo (con contraseñas, encriptación, etc.) guardado en una tabla llamada User. Aquí simplemente estamos trayendo esa tabla prefabricada para poder conectarla con nuestros papelitos.
+from django.db import models
+from django.contrib.auth.models import User 
 
 class Nota(models.Model): #Aquí le estamos diciendo a Django: "Crea una tabla en la base de datos y llámala Nota". Cada vez que alguien llene el formulario en tu web, se creará una nueva fila dentro de esta tabla.
     CATEGORIAS = [
